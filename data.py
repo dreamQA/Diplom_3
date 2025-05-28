@@ -1,0 +1,5 @@
+LOGIN = 'alexandergajdaj18a111@yandex.ru'
+PASSWORD = '708n9gmuA'
+INGREDIENT_DETAILS = 'Детали ингредиента'
+COUNT_INGREDIENT = '2'
+ORDER_NUMBER_FOR_TEST = '5000'
