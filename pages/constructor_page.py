@@ -63,25 +63,31 @@ class ConstructorPage(MainPage):
     def get_modal_order_text(self):
         return self.get_text_of_element(modal_order)
 
-    def wait_for_order_item(self,locator):
-        wait = WebDriverWait(self.browser, 10)
-        wait.until(EC.presence_of_element_located((By.XPATH,locator)))
 
     @allure.step('Собираем и оформляем заказ')
     def create_and_approve_order(self):
-        ingredient = self.get_ingredient()
-        buns = self.get_buns()
-        constructor_burger = self.get_constructor_burger()
-        self.drag_and_drop(buns,constructor_burger)
-        self.drag_and_drop(ingredient,constructor_burger)
-        self.click_order_button()
+        with allure.step('Возвращаем ингредиент'):
+            ingredient = self.get_ingredient()
+        with allure.step('Возвращаем булку'):
+            buns = self.get_buns()
+        with allure.step('Возвращаем конструктор бургера'):
+            constructor_burger = self.get_constructor_burger()
+        with allure.step('Перемещаем булку в конструктор'):
+            self.drag_and_drop(buns,constructor_burger)
+        with allure.step('Перемещаем ингредиент в конструктор'):
+            self.drag_and_drop(ingredient,constructor_burger)
+        with allure.step('Нажимаем на кнопку оформить заказ'):
+            self.click_order_button()
 
+    @allure.step('Ожидаем видимость загрузки')
     def wait_loading_visability(self,browser):
         self.wait.until(EC.visibility_of_element_located(loading))
 
+    @allure.step('Ожидаем исчезновение загрузки')
     def wait_loading_invisibility(self,browser):
         self.wait.until(EC.invisibility_of_element_located(loading))
 
+    @allure.step('Создаем и проверяем заказ')
     def create_order_and_check(self,browser):
        order_feed_page = OrderFeedPage(self.browser)
        user_order_history = ConstructorPage(browser)

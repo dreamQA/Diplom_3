@@ -1,12 +1,14 @@
 import allure
+
+from pages.password_recovery_page import PasswordRecoveryPage
 from url import *
 import pytest
 
 class TestPasswordRecovery:
 
     @allure.title('Проверка перехода на страницу восстановления пароля по кнопке восстановить пароль')
-    def test_password_recovery_page(self,browser,prepare_for_password_recovery):
-        recovery_page = prepare_for_password_recovery
+    def test_password_recovery_page(self,browser):
+        recovery_page = PasswordRecoveryPage(browser)
         with allure.step('Открываем страницу авторизации'):
             recovery_page.open(f'{URL}{LOGIN}')
         with allure.step('Нажимаем на кнопку восстановить пароль'):
@@ -16,8 +18,8 @@ class TestPasswordRecovery:
 
 
     @allure.title('Проверка заполняемости поля почты и нажатие кнопки "восстановить"')
-    def test_password_field_email_and_restore_button_click(self,browser,prepare_for_password_recovery):
-        recovery_page = prepare_for_password_recovery
+    def test_password_field_email_and_restore_button_click(self,browser):
+        recovery_page = PasswordRecoveryPage(browser)
         with allure.step('Открываем страницу авторизации'):
             recovery_page.open(f'{URL}{FORGOT_PASSWORD}')
         with allure.step('Заполняем поле почты'):
@@ -30,8 +32,8 @@ class TestPasswordRecovery:
             assert recovery_page.get_current_url() == f'{URL}{RESET_PASSWORD}'
 
     @allure.title('Проверка логики:клик по кнопке показать/скрыть пароль делает поле активным — подсвечивает его.')
-    def test_show_hide_activates_password_field(self,browser,prepare_for_password_recovery):
-        recovery_page = prepare_for_password_recovery
+    def test_show_hide_activates_password_field(self,browser):
+        recovery_page = PasswordRecoveryPage(browser)
         with allure.step('Открываем страницу авторизации'):
             recovery_page.open(f'{URL}{LOGIN}')
         with allure.step('Нажимаем на кнопку восстановить пароль'):

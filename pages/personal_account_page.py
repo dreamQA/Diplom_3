@@ -16,10 +16,6 @@ class PersonalAccountPage(MainPage):
     def click_button_history(self):
         self.click_element(order_history_link)
 
-    def wait_for_order_history_item(self,locator):
-        wait = WebDriverWait(self.browser, 10)
-        wait.until(EC.presence_of_element_located(locator))
-
     @allure.step('Возвращаем номер последнего заказа в личный кабинет')
     def get_order_history_item(self):
         return self.get_text_of_element(order_history_item)

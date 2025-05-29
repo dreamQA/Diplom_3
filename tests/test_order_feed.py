@@ -22,6 +22,7 @@ class TestOrderFeed:
     @allure.title('Проверка: заказы пользователя из раздела «История заказов» отображаются на странице «Лента заказов»,')
     def test_order_history_displayed_in_order_feed(self,browser,prepare_for_order):
         _, email, password, auth, order_feed_page,personal_account, constructor = prepare_for_order
+        main = MainPage(browser)
         with allure.step('Открываем страницу конструктора.Авторизуемся'):
             auth.login(email,password)
         with allure.step('Добавляем ожидание для загрузки страницы'):
@@ -40,13 +41,13 @@ class TestOrderFeed:
         with allure.step('Нажимаем на кнопку история заказов'):
             personal_account.click_button_history()
         with allure.step('Добавляем ожидание'):
-            personal_account.wait_for_order_history_item(order_history_item)
+            main.wait_for_order_history_item(order_history_item)
         with allure.step('Находим номер последнего заказа в личном кабинете'):
             last_order_number = personal_account.get_order_history_item()
         with allure.step('Нажимаем на кнопку лента заказов'):
             order_feed_page.click_order_feed_button()
         with allure.step('Добавляем ожидание'):
-            personal_account.wait_for_order_history_item(number)
+           main.wait_for_order_history_item(number)
         with allure.step('Проверка,что последний заказ из личного кабинета отобразился в ленте заказов'):
             order_numbers_in_feed = order_feed_page.get_order()
             assert last_order_number in order_numbers_in_feed

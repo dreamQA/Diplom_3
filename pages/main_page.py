@@ -69,4 +69,9 @@ class MainPage:
     def click_personal_account(self):
        self.click_element(button_personal_account)
 
+    @allure.step('Метод проверяет загрузился ли элемент на странице в течении 10 сек')
+    def wait_for_order_history_item(self,locator):
+        wait = WebDriverWait(self.browser, 10)
+        wait.until(EC.presence_of_element_located(locator))
+
 

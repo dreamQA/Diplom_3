@@ -63,11 +63,6 @@ def prepare_for_order(browser,create_and_delete_user):
     constructor = ConstructorPage(browser)
     yield response,email,password,auth,order_feed_page,personal_account,constructor
 
-#Фикстура для подготовки теста восстановления пароля
-@pytest.fixture()
-def prepare_for_password_recovery(browser):
-    recovery_page = PasswordRecoveryPage(browser)
-    yield recovery_page
 
 # Фикстура для подготовки теста личного кабинета
 @pytest.fixture()
